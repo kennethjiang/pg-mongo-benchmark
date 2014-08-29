@@ -24,7 +24,7 @@ It's preferable to use Linux for these benchmarks – either on a remote (EC2) s
 
 1. Point `POSTGRES_CONNECTION` in `server-postgres.js` at the Postgres database.
 2. Come up with some way of measuring write times, either in the server or on the client.
-3. Run the client using the test dataset (this should take around 30 minutes), and record your results.
+3. Run the client using the test dataset (this should take around 6 minutes), and record your results.
 
 ### Task A2: Run a read benchmark on Postgres
 
@@ -34,7 +34,7 @@ Run a SQL query to find how many of each event happened in every minute of the t
 
 1. Point `MONGO_CONNECTION` in `server-mongo.js` at the MongoDB instance.
 2. Come up with some way of measuring write times, either in the server or on the client.
-3. Run the client using the test dataset (this should take around 30 minutes), and record your results.
+3. Run the client using the test dataset (this should take around 6 minutes), and record your results.
 
 ### Task B2: Run a read benchmark on MongoDB
 
