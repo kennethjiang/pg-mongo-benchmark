@@ -1,0 +1,7 @@
+{
+  "name": "BranchOpsChallenge",
+  "dependencies": {
+    "mongodb": "^1.4.9",
+    "pg.js": "^3.4.2"
+  }
+}
