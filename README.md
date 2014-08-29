@@ -30,13 +30,13 @@ It's preferable to use Linux for these benchmarks – either on a remote (EC2) s
 
 Run a SQL query to find how many of each event happened in every minute of the test. Run this query several times to roughly figure out its performance (obviously, this would be more telling on a larger dataset, but we'll take what we can get).
 
-### Task A1: Run a write benchmark on MongoDB
+### Task B1: Run a write benchmark on MongoDB
 
 1. Point `MONGO_CONNECTION` in `server-mongo.js` at the MongoDB instance.
 2. Come up with some way of measuring write times, either in the server or on the client.
 3. Run the client using the test dataset (this should take around 30 minutes), and record your results.
 
-### Task A2: Run a read benchmark on Postgres
+### Task B2: Run a read benchmark on MongoDB
 
 Run a query to find how many of each event happened in every minute of the test. Run this query several times to roughly figure out its performance (obviously, this would be more telling on a larger dataset, but we'll take what we can get).
 
