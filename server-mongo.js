@@ -1,4 +1,4 @@
-  var MongoClient = require('mongodb').MongoClient, http = require('http'), url = require('url');
+var MongoClient = require('mongodb').MongoClient, http = require('http'), url = require('url');
 
 var MONGO_CONNECTION = 'mongodb://localhost:27017/app';
 

@@ -1,4 +1,4 @@
-var postgres = require('pg.js'), http = require('http'), url = require('url');
+var pg = require('pg.js'), http = require('http'), url = require('url');
 
 var POSTGRES_CONNECTION = 'postgres://root:root@localhost:5432/app';
 
