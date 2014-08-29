@@ -14,7 +14,7 @@ This package includes:
 
 It's preferable to use Linux for these benchmarks – either on a remote (EC2) server, or locally through Vagrant+VirtualBox or the like (or, if you have Linux installed locally, so much the better!). You'll need, on your server:
 
-- node.js
+- node.js (be sure to run `npm install` in this folder)
 - Postgres (create a database and import `schema.sql` into it)
 - MongoDB (create a database, and create a collection in it named `events`)
 
