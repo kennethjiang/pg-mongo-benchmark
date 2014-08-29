@@ -1,13 +1,12 @@
-var pg = require('pg.js'), http = require('http'), url = require('url');
+var pg = require('pg'), http = require('http'), url = require('url');
 
 var POSTGRES_CONNECTION = 'postgres://root:root@localhost:5432/app';
 
-pg.connect(POSTGRES_CONNECTION, function(err, client, done) {
+new pg.Client(POSTGRES_CONNECTION).connect(POSTGRES_CONNECTION, function(err, client) {
 	if (err) { throw err; }
 
 	http.createServer(function(req, res) {
 		client.query('INSERT INTO event (ts, name) VALUES ($1, $2)', [ new Date(), url.parse(req.url, true).query.event ], function(err) {
-			done();
 
 			if (err) {
 				console.warn(err);

@@ -2,7 +2,7 @@
   "name": "BranchOpsChallenge",
   "dependencies": {
     "mongodb": "^1.4.9",
-    "pg.js": "^3.4.2"
+    "pg": "^3.4.1"
   },
   "version": "0.0.0",
   "repository": {
