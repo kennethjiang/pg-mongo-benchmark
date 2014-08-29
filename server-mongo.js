@@ -8,8 +8,6 @@ MongoClient.connect(MONGO_CONNECTION, function(err, db) {
 
 	http.createServer(function(req, res) {
 		collection.insert({ ts: new Date(), name: url.parse(req.url, true).query.event }, function(err) {
-			done();
-
 			if (err) {
 				console.warn(err);
 				res.writeHead(500, { 'Content-Type': 'text/plain' });
