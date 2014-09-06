@@ -4,6 +4,8 @@
 
 The goal of this challenge is to measure the read and write performance for a sample dataset of Postgres and MongoDB, in order to make a choice about which one to use in a production environment.
 
+(Note: there aren't any "tricks" – if there is a mistake here, it's an honest mistake on my part)
+
 ## Setup
 
 This package includes:
