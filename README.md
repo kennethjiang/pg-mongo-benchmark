@@ -45,5 +45,5 @@ Run a query to find how many of each event happened in every minute of the test.
 ## Deliverables
 
 - A report of rough read and write times for MongoDB and Postgres (as well as results for the read queries :-)).
-- Suggestions for any low-hanging fruit in speeding up the queries (especially the reads).
-- A recommendation for which database to pick, given the sample load.
+- Brief suggestions for any low-hanging fruit in speeding up the queries (especially the reads) - think 1-2 sentences.
+- A brief recommendation for which database to pick, given the sample load - again, a few sentences is sufficient :-).
