@@ -1,13 +1,13 @@
-* *Both PostgreSQL and MongoDB are running on a AWS i2.4xlarge instance. IOPS/drive seems to peak at ~65k.*
+* *Both PostgreSQL and MongoDB are running on an AWS i2.4xlarge instance. IOPS/drive seems to capped at ~65k.*
 
-* *Benchmarking concurrency level is defined as the number of benchmarking processes (such as `node mongo-writes.js`) running concurrently.*
+* *Benchmarking concurrency level: the number of benchmarking processes (such as `node mongo-writes.js`) running concurrently.*
 
 # PostgreSQL Benchmarks
 
 ### Inserts
 
-* When benchmarking concurrency level is 1, 37k sample data are inserted in 21secs. Throughput = **1.8k inserts/sec **
-* Throughput = **38k inserts/sec** at concurrency level of 64, when it maxes out all 65k IOPS.
+* When benchmarking concurrency level is 1, 37k sample data are inserted in 21secs. Throughput = __1.8k inserts/sec__
+* Throughput = __38k inserts/sec__ at concurrency level of 64, when it maxes out all 65k IOPS.
 
 Notes:
 
@@ -15,19 +15,19 @@ Notes:
 
 ### Selects
 
-* Select query `SELECT name, count(*) FROM event GROUP BY name;` runs **180ms** without index, **15ms** with index.
+* Select query `SELECT name, count(*) FROM event GROUP BY name;` runs __180ms__ without index, __15ms__ with index.
 
 # MongoDB Benchmarks
 
 ### Inserts
 
-* When benchmarking concurrency level is 1, 37k sample data are inserted in 7secs. Throughput = **5.3k inserts/sec **
-* Throughput peaks at **27k inserts/sec **. It is achieved when concurrency level is 8.
+* When benchmarking concurrency level is 1, 37k sample data are inserted in 7secs. Throughput = __5.3k inserts/sec__
+* Throughput peaks at __27k inserts/sec__. It is achieved when concurrency level is 8.
 
 Notes:
 
-* *When throughput is at 27k inserts/sec, MongoDB is generating only ~50IOPS. This is an indication that MongoDB bundles ~500 inserts into 1 disk writes. It explains why MongoDB can support higher inserts/sec than PostgreSQL when concurrency level is low. However, this also means higher possibility of data loss, as MongoDB already acknowledges an insert operation before data hits physical disk. *
-* *Throughput peaks when concurrency level is 8. Neiether IPOS nor CPU is maxed out. I did a bit of invistigation and found that one `mongod` process would peak at 200% (2 cores) when concurrency reached 8 or beyond, while other `mongod` processes only consumed 2-5% CPU each. Because of this "long-pole" `mongod` process, maximum resource utilization is poor at only ~50IOPS and ~20% CPU (on 16 cores). This seems to indicate a flaw in MongoDB implementation. But it is also possible that MongoDB can be fine-tuned to achieve better utitlization.*
+* *When throughput is at 27k inserts/sec, MongoDB is generating only ~50IOPS. This is an indication that MongoDB bundles ~500 inserts into 1 disk writes. It explains why MongoDB can support higher inserts/sec than PostgreSQL when concurrency level is low. However, this also means higher possibility of data loss, as MongoDB already acknowledges an insert operation before data hits physical disk.*
+* *Throughput peaks when concurrency level is 8. Neiether IPOS nor CPU is maxed out. I did a bit of invistigation and found that one `mongod` process would peak at 200% (2 cores) when concurrency reached 8 or beyond, while other `mongod` processes only consumed 2-5% CPU each. Because of this "long-pole" `mongod` process, maximum resource utilizations are poor at only ~50IOPS and ~20% CPU (on 16 cores). This seems to indicate a flaw in MongoDB implementation. But it is also possible that MongoDB can be fine-tuned to achieve better utitlization.*
 
 ### Selects
 * Select query `db.events.aggregate({$group : {_id: "$name", count: { $sum: 1 } } });` runs 4ms.
@@ -46,7 +46,7 @@ Among the 2 databases evaluated, PostgreSQL is recommended for the reasons below
 # Optimization
 ### PostgreSQL inserts
 
-1. Scale-up: Upgrade to VM/hardward that supports higher IOPS
+1. Scale-up: Upgrade to VM/hardware that supports higher IOPS.
 2. Scale-out: When upgrading IOPS is not feasible or not economical, consider sharding the database.
 
 ### PostgreSQL selects
@@ -60,15 +60,15 @@ Among the 2 databases evaluated, PostgreSQL is recommended for the reasons below
 
 ### Why didn't I benchmark using server-xxx.js
 
-server-xxx.js can be benchmarked with simple command similar to
+server-xxx.js can be benchmarked with simple command
 
 ```bash
-for i in $(seq 1 $PARALLEL_LEVEL); do curl 'http://localhost:3000/?event=asdfasdf' & done
+for i in $(seq 1 $REPEATS); do curl 'http://localhost:3000/?event=asdfasdf' & done
 ```
 
 However, I wrote [pg-insert.js](pg-insert.js) and [mongo-insert.js](mongo-insert.js) to do benchmarking for the following reasons:
 
-* Assuming the goal is to benchmark databases, not web app itself, bypassing server-xxx.js gives us the shortest distance between benchmarking client and target, and hence minimizes the noises.
+* Bypassing server-xxx.js gives us the shortest distance between benchmarking client and target, and hence minimizes the noises. This is based on the assumption that the goal of this exercise is to benchmark databases, not web app itself.
 * Benchmarking concurrency can be easily controlled with scripts like `for i in $(seq 1 $CONCURRENCY_LEVEL); do nodejs pg-insert.js & done`
 
 ### Separating benchmarking client from target
