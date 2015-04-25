@@ -1,3 +1,5 @@
+# [Kenneth's report](REPORT.md)
+
 # Branch Metrics Coding Challenge
 
 ## Goal

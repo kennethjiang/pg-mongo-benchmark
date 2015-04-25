@@ -1,6 +1,6 @@
 var MongoClient = require('mongodb').MongoClient, http = require('http'), url = require('url');
 
-var MONGO_CONNECTION = 'mongodb://localhost:27017/app';
+var MONGO_CONNECTION = 'mongodb://172.31.41.237:27017/app';
 
 MongoClient.connect(MONGO_CONNECTION, function(err, db) {
 	if (err) { throw err; }

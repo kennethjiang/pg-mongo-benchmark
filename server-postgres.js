@@ -1,6 +1,6 @@
 var pg = require('pg'), http = require('http'), url = require('url');
 
-var POSTGRES_CONNECTION = 'postgres://root:root@localhost:5432/app';
+var POSTGRES_CONNECTION = 'postgres://root:root@172.31.41.237:5432/app';
 
 new pg.Client(POSTGRES_CONNECTION).connect(function(err, client) {
 	if (err) { throw err; }
